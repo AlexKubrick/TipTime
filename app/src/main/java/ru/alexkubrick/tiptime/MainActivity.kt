@@ -2,7 +2,6 @@ package ru.alexkubrick.tiptime
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import ru.alexkubrick.tiptime.databinding.ActivityMainBinding
 import java.text.NumberFormat
 
@@ -13,14 +12,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.tipResult.setVisibility(View.GONE)
-
-        binding.calculateButton.setOnClickListener{ calculateTip() }
+        binding.calculateButton.setOnClickListener { calculateTip() }
     }
 
-
     private fun calculateTip() {
-        binding.tipResult.setVisibility(View.VISIBLE)
         val stringInTextField = binding.costOfService.text.toString()
         val cost = stringInTextField.toDoubleOrNull()
 
@@ -41,15 +36,13 @@ class MainActivity : AppCompatActivity() {
         if (binding.roundUpSwitch.isChecked) {
             tip = kotlin.math.ceil(tip)
         }
-        NumberFormat.getCurrencyInstance()
-
 
         // Display the formatted tip value on screen
         displayTip(tip)
     }
 
-    private fun displayTip(tip : Double) {
+    private fun displayTip(tip: Double) {
         val formattedTip = NumberFormat.getCurrencyInstance().format(tip)
-        binding.tipResult.text = getString(R.string.tip_amount, formattedTip)
+        binding.tipResult.text = getString(R.string.tip_amount_with_percent, formattedTip)
     }
 }
